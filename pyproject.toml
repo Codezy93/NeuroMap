@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuromap"
+version = "0.1.0"
+description = "3D volumetric brain tumor segmentation with MC-dropout uncertainty maps."
+readme = "Readme.md"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.3",
+  "monai>=1.3.2",
+  "nibabel>=5.2.1",
+  "numpy>=1.26",
+  "tqdm>=4.66",
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.7",
+  "pillow>=10.4",
+  "wandb>=0.18",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

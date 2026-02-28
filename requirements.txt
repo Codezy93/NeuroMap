@@ -1,0 +1,21 @@
+torch --index-url https://download.pytorch.org/whl/cu130
+torchvision --index-url https://download.pytorch.org/whl/cu130
+monai
+nibabel
+numpy
+tqdm
+fastapi
+uvicorn[standard]
+pydantic
+streamlit
+requests
+matplotlib
+pillow
+wandb
+
+# Case ID: case001
+# MRI volume path: D:/NeuroMap/src/data/Task01_BrainTumour/imagesTr/BRATS_001.nii.gz
+# Prediction path: D:/NeuroMap/src/artifacts/predict/case001_prediction.nii.gz
+# Entropy path: D:/NeuroMap/src/artifacts/predict/case001_entropy.nii.gz
+# MRI channel index: 0
+# MRI channel axis: last  

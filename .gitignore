@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+.env
+.DS_Store
+
+# Build and packaging
+build/
+dist/
+*.egg-info/
+
+# Training and experiment artifacts
+artifacts/
+wandb/
+logs/
+checkpoints/
+
+# IDE/editor files
+.idea/
+.vscode/
+
+# Frontend (Next.js)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
