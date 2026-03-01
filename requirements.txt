@@ -19,3 +19,4 @@ wandb
 # Entropy path: D:/NeuroMap/src/artifacts/predict/case001_entropy.nii.gz
 # MRI channel index: 0
 # MRI channel axis: last  
+# https://msd-for-monai.s3-us-west-2.amazonaws.com/Task01_BrainTumour.tar
