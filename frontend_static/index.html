@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroMap Codebase Analysis Demo</title>
+    <meta
+      name="description"
+      content="Static demo dashboard showing codebase analysis results and insights for NeuroMap."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="demo-ribbon">DEMO ONLY - STATIC FRONTEND - NOT CLINICAL SOFTWARE</div>
+    <div class="bg-orb bg-orb-a"></div>
+    <div class="bg-orb bg-orb-b"></div>
+    <div class="bg-grid"></div>
+
+    <main class="shell">
+      <div class="dashboard-grid">
+        <header class="hero">
+          <p class="kicker">NeuroMap</p>
+          <h1>Codebase Analysis Dashboard</h1>
+          <p class="hero-copy">
+            This page is a <strong>static demo</strong> generated from repository inspection. It
+            summarizes architecture, implementation choices, dataset metadata, strengths, and risks.
+          </p>
+          <div class="hero-meta">
+            <span>Scan date: <strong>March 2, 2026</strong></span>
+            <span>Scope: <strong>backend/neuromap + frontend/app + project docs</strong></span>
+          </div>
+        </header>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Snapshot Metrics</h2>
+            <p>Static values extracted from current source tree.</p>
+          </div>
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span class="metric-label">Owned Source Files</span>
+              <span class="metric-value">12</span>
+              <span class="metric-note">backend: 8 | frontend app: 4</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Owned LOC</span>
+              <span class="metric-value">2,055</span>
+              <span class="metric-note">backend: 789 | frontend: 1,266</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Dataset Entries</span>
+              <span class="metric-value">484</span>
+              <span class="metric-note">training: 387 | validation: 97</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Public API Endpoints</span>
+              <span class="metric-value">6</span>
+              <span class="metric-note">health, register/create, meta, slice, scatter3d</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">CLI Commands</span>
+              <span class="metric-value">3</span>
+              <span class="metric-note">train | predict | serve</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Automated Tests Found</span>
+              <span class="metric-value metric-warn">0</span>
+              <span class="metric-note">No test files detected in project-owned source</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel demo-case-panel">
+          <div class="panel-head">
+            <h2>Demo Case</h2>
+            <p>
+              Static controls and slice metrics using artifacts generated from
+              `backend/artifacts/predict/case001_*.nii.gz`.
+            </p>
+          </div>
+
+          <div class="viewer-controls">
+            <div class="viewer-row">
+              <button id="prevSlice" type="button">Prev</button>
+              <input id="zSlider" type="range" min="0" max="154" value="77" />
+              <button id="nextSlice" type="button">Next</button>
+              <span class="mono">Slice: <strong id="zValue">77</strong> / <span id="zMax">154</span></span>
+            </div>
+
+            <div class="viewer-grid">
+              <label>
+                Display Mode
+                <select id="displayMode">
+                  <option value="composite">Composite</option>
+                  <option value="sideBySide">Side by side</option>
+                  <option value="imageOnly">Mean prob only</option>
+                </select>
+              </label>
+              <label class="checkbox-inline">
+                <input id="togglePrediction" type="checkbox" checked />
+                <span>Prediction overlay</span>
+              </label>
+              <label class="checkbox-inline">
+                <input id="toggleEntropy" type="checkbox" checked />
+                <span>Entropy overlay</span>
+              </label>
+              <label class="checkbox-inline">
+                <input id="toggleVariance" type="checkbox" />
+                <span>Variance overlay</span>
+              </label>
+              <label>
+                Prediction Alpha <span class="mono" id="predictionAlphaValue">0.50</span>
+                <input id="predictionAlpha" type="range" min="0" max="1" step="0.05" value="0.5" />
+              </label>
+              <label>
+                Entropy Alpha <span class="mono" id="entropyAlphaValue">0.55</span>
+                <input id="entropyAlpha" type="range" min="0" max="1" step="0.05" value="0.55" />
+              </label>
+              <label>
+                Variance Alpha <span class="mono" id="varianceAlphaValue">0.35</span>
+                <input id="varianceAlpha" type="range" min="0" max="1" step="0.05" value="0.35" />
+              </label>
+              <label>
+                Prediction Threshold <span class="mono" id="predictionThresholdValue">0.30</span>
+                <input id="predictionThreshold" type="range" min="0" max="1" step="0.05" value="0.3" />
+              </label>
+              <label>
+                Entropy Threshold <span class="mono" id="entropyThresholdValue">0.50</span>
+                <input id="entropyThreshold" type="range" min="0" max="1" step="0.05" value="0.5" />
+              </label>
+              <label>
+                Variance Threshold <span class="mono" id="varianceThresholdValue">0.35</span>
+                <input id="varianceThreshold" type="range" min="0" max="1" step="0.05" value="0.35" />
+              </label>
+            </div>
+          </div>
+
+          <div class="slice-metrics">
+            <article class="metric-card">
+              <span class="metric-label">Tumor Pixels</span>
+              <span class="metric-value" id="metricTumor">--</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Hotspot Pixels</span>
+              <span class="metric-value" id="metricHotspot">--</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Entropy Mean</span>
+              <span class="metric-value" id="metricEntropy">--</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel image-3d-panel">
+          <div class="panel-head">
+            <h2>Image + 3D</h2>
+            <p>Slice visualization and 3D scatter reconstruction for the selected demo case.</p>
+          </div>
+
+          <div class="viewer-stage">
+            <canvas id="compositeCanvas" width="240" height="240" aria-label="Composite slice view"></canvas>
+            <div class="side-grid side-grid-four" id="sideGrid">
+              <figure>
+                <img id="layerMeanProb" alt="Mean probability slice" />
+                <figcaption>Mean Probability</figcaption>
+              </figure>
+              <figure>
+                <img id="layerPrediction" alt="Prediction slice" />
+                <figcaption>Prediction</figcaption>
+              </figure>
+              <figure>
+                <img id="layerEntropy" alt="Entropy slice" />
+                <figcaption>Entropy</figcaption>
+              </figure>
+              <figure>
+                <img id="layerVariance" alt="Variance slice" />
+                <figcaption>Variance</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="scatter-panel">
+            <div class="scatter-top">
+              <h3>3D Scatter Reconstruction</h3>
+              <p>
+                Yellow points come from white slice pixels in the base layer, and red points come from
+                prediction-positive voxels.
+              </p>
+            </div>
+            <div class="scatter-controls">
+              <label>
+                Density Preset
+                <select id="scatterPreset">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <button id="loadScatter" type="button">Load 3D Graph</button>
+              <div class="mono" id="scatterCounts">Points: --</div>
+            </div>
+            <div id="scatterPlot" class="scatter-plot" aria-label="3D scatter plot"></div>
+            <p class="metric-note" id="scatterStatus">Loading 3D preset...</p>
+          </div>
+        </section>
+
+        <section class="panel span-2">
+          <div class="panel-head">
+            <h2>Architecture & Flow</h2>
+            <p>End-to-end implementation map inferred from source code.</p>
+          </div>
+          <div class="flow-grid">
+            <article class="flow-card">
+              <h3>1) CLI Entrypoint</h3>
+              <p>`neuromap` dispatches `train`, `predict`, and `serve` subcommands.</p>
+            </article>
+            <article class="flow-card">
+              <h3>2) Training Pipeline</h3>
+              <p>
+                MONAI transforms + patch sampling + 3D U-Net + DiceCE loss + validation Dice + checkpoint
+                history.
+              </p>
+            </article>
+            <article class="flow-card">
+              <h3>3) MC-Dropout Inference</h3>
+              <p>
+                Dropout layers stay active during inference to emit mean probability, variance, and entropy.
+              </p>
+            </article>
+            <article class="flow-card">
+              <h3>4) FastAPI Slice Service</h3>
+              <p>
+                Cases are registered from local NIfTI paths, then served as per-slice PNG and optional 3D
+                scatter payload.
+              </p>
+            </article>
+            <article class="flow-card">
+              <h3>5) Next.js Interactive Viewer</h3>
+              <p>
+                Frontend includes health checks, case registration, overlays, slice metrics, and Plotly 3D
+                point cloud.
+              </p>
+            </article>
+            <article class="flow-card">
+              <h3>6) API Bridge Proxy</h3>
+              <p>
+                Same-origin route proxies requests and supports `x-neuromap-api-url` for configurable backend
+                target.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel span-2">
+          <div class="panel-head panel-head-actions">
+            <div>
+              <h2>Insight Matrix</h2>
+              <p>Actionable findings from implementation review.</p>
+            </div>
+            <div class="filter-wrap">
+              <label for="severityFilter">Filter</label>
+              <select id="severityFilter">
+                <option value="all">All Severities</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="insight-list" id="insightList">
+            <article class="insight-card" data-severity="high">
+              <div class="insight-top">
+                <span class="pill pill-high">High</span>
+                <h3>Unrestricted file-path ingestion in case registration</h3>
+              </div>
+              <p>
+                API accepts raw local paths (`image_path`, `prediction_path`, `entropy_path`) from request body
+                and loads with nibabel. This is unsafe for exposed environments.
+              </p>
+              <p class="evidence">Evidence: backend/neuromap/api.py (register + _load_volume)</p>
+            </article>
+
+            <article class="insight-card" data-severity="high">
+              <div class="insight-top">
+                <span class="pill pill-high">High</span>
+                <h3>Open CORS and no auth controls</h3>
+              </div>
+              <p>
+                CORS allows all origins/methods/headers and there is no authentication on data-serving
+                endpoints.
+              </p>
+              <p class="evidence">Evidence: backend/neuromap/api.py (CORSMiddleware config)</p>
+            </article>
+
+            <article class="insight-card" data-severity="high">
+              <div class="insight-top">
+                <span class="pill pill-high">High</span>
+                <h3>Proxy target can be overridden via request header</h3>
+              </div>
+              <p>
+                Bridge route reads `x-neuromap-api-url` from caller and forwards upstream. If deployed broadly,
+                this can create SSRF-style risk.
+              </p>
+              <p class="evidence">Evidence: frontend/app/api/bridge/[...path]/route.ts</p>
+            </article>
+
+            <article class="insight-card" data-severity="medium">
+              <div class="insight-top">
+                <span class="pill pill-medium">Medium</span>
+                <h3>In-memory case registry has no eviction/persistence</h3>
+              </div>
+              <p>
+                Registered volumes stay in global process memory (`CASES`) with no TTL, size guard, or external
+                storage.
+              </p>
+              <p class="evidence">Evidence: backend/neuromap/api.py (global CASES dict)</p>
+            </article>
+
+            <article class="insight-card" data-severity="medium">
+              <div class="insight-top">
+                <span class="pill pill-medium">Medium</span>
+                <h3>Packaging configuration mismatch risk</h3>
+              </div>
+              <p>
+                `pyproject.toml` points setuptools packages to `src`, but repository does not include `src`
+                directory in current tree.
+              </p>
+              <p class="evidence">Evidence: pyproject.toml + repository layout</p>
+            </article>
+
+            <article class="insight-card" data-severity="medium">
+              <div class="insight-top">
+                <span class="pill pill-medium">Medium</span>
+                <h3>No automated tests found</h3>
+              </div>
+              <p>
+                Project-owned code has no obvious test suite, which raises regression risk across training,
+                inference, and API behavior.
+              </p>
+              <p class="evidence">Evidence: repository search for test/spec files</p>
+            </article>
+
+            <article class="insight-card" data-severity="low">
+              <div class="insight-top">
+                <span class="pill pill-low">Low</span>
+                <h3>Strength: robust MC-dropout implementation</h3>
+              </div>
+              <p>
+                Dropout activation is explicit and uncertainty outputs include mean probability, variance, and
+                predictive entropy.
+              </p>
+              <p class="evidence">Evidence: backend/neuromap/uq.py</p>
+            </article>
+
+            <article class="insight-card" data-severity="low">
+              <div class="insight-top">
+                <span class="pill pill-low">Low</span>
+                <h3>Strength: practical Windows stability defaults</h3>
+              </div>
+              <p>
+                Training defaults to conservative DataLoader/cache settings on Windows and prints explicit
+                guidance.
+              </p>
+              <p class="evidence">Evidence: backend/neuromap/train.py</p>
+            </article>
+          </div>
+        </section>
+
+        <footer class="footnote span-2">
+          <p>
+            <strong>DEMO NOTICE:</strong> This page is intentionally static for demonstration and does not execute
+            training, inference, or medical decision logic.
+          </p>
+        </footer>
+      </div>
+    </main>
+
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
